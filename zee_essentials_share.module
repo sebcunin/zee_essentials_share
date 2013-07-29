@@ -1,6 +1,13 @@
 <?php
 
+function _zee_essentials_get_nids_variable_get($key='site_name'){
 
+
+return NULL;
+
+
+
+}
 
 include_once 'zee_essentials_share.features.inc';
 /**
@@ -13,7 +20,7 @@ function zee_essentials_share_form_alter(&$form, $form_state, $form_id) {
   // Vérification que nous sommes bien en train de voir le formulaire d'un
   // webform et l'url contient bien share_email
   if(preg_match("/webform_client/i", $form_id)){
-    $nid_share  =  zeest_common_get_nids_variable_get('adpi_partage_nids');
+    $nid_share  =  _zee_essentials_get_nids_variable_get('adpi_partage_nids');
     // Vérification qu'on est vien sur le formulaire de Partage
     // avec le nid_share (NID du Webform)
     if($form_id == 'webform_client_form_' . $nid_share){
@@ -74,10 +81,10 @@ function zee_essentials_share_preprocess_zee_essentials_share_links(&$variables=
  *  Get a link for the share page
  *  avec l'information sur le nid de la page à partager
  *  et des options utiles pour la colorbox
- *  @see zeest_common_get_nids_variable_get()
+ *  @see _zee_essentials_get_nids_variable_get()
  * */
 function zee_essentials_share_get_link_mail($node){
-  $nid_share  =  zeest_common_get_nids_variable_get('adpi_partage_nids');
+  $nid_share  =  _zee_essentials_get_nids_variable_get('adpi_partage_nids');
   return '/node/' . $nid_share . '?template=colorbox&width=580&height=680&iframe=true&page_id=' . $node->nid;
 }
 /**
