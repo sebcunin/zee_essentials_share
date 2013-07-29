@@ -1,0 +1,149 @@
+<?php
+
+
+
+include_once 'zee_essentials_share.features.inc';
+/**
+ * @file zee_essentials_share.module
+ * */
+/**
+ * Implements hook_form_alter().
+ */
+function zee_essentials_share_form_alter(&$form, $form_state, $form_id) {
+  // Vérification que nous sommes bien en train de voir le formulaire d'un
+  // webform et l'url contient bien share_email
+  if(preg_match("/webform_client/i", $form_id)){
+    $nid_share  =  zeest_common_get_nids_variable_get('adpi_partage_nids');
+    // Vérification qu'on est vien sur le formulaire de Partage
+    // avec le nid_share (NID du Webform)
+    if($form_id == 'webform_client_form_' . $nid_share){
+      $args = drupal_get_query_parameters();
+      $nid = $args['page_id'];
+      $title = node_load($nid)->title;
+      // Les données de la page sont envoyés dans le formulaire
+      $form['submitted']['title_page']['#value'] = $title;
+      $form['submitted']['href_page']['#value']  = url('node/'.$nid, array('absolute'=>true));
+      $form['submitted']['sujet_du_message']['#value']  = t('Partage de l\'article @title',array('@title'=>$title));
+    }
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function zee_essentials_share_theme($existing, $type, $theme, $path) {
+  return array(
+    'zee_essentials_share_links' => array(
+      'template'=>'zee_essentials_share_links',
+    ),
+  );
+}
+
+function zee_essentials_share_get_node(){
+  return menu_get_object();
+}
+/**
+ * Injecter des données sur les réseaux sociaux
+ * comme l'url complète, le titre de la page en cours de consultation
+ * */
+function zee_essentials_share_preprocess_zee_essentials_share_links(&$variables=NULL){
+  $variables['link_share'] = '#';
+  $variables['link_share_fb'] = '#';
+  $variables['link_share_tw'] = '#';
+  $variables['link_share_li'] = '#';
+  $variables['link_share_gp'] = '#';
+  $node = zee_essentials_share_get_node();
+  if(isset($node)){
+    $variables['link_share']    = zee_essentials_share_get_link_mail($node);
+    $variables['link_share_fb'] = zee_essentials_share_get_link_fb($node);
+    $variables['link_share_tw'] = zee_essentials_share_get_link_tw($node);
+    $variables['link_share_li'] = zee_essentials_share_get_link_li($node);
+    $variables['link_share_gp'] = zee_essentials_share_get_link_gp($node);
+  }
+  $variables['is_enabled'] = TRUE;
+  // Ne pas afficher l'outil de partage sur la page news/year/XXXX
+  // Cette page n'ayant pas de NID, je ne peux pas la partager via l'outil interne de Partage
+  // La fonction drupal_match_path n'est pas assez posé pour la gestion d'une expresion régulière
+  if(preg_match('/^news\/year/', current_path())){
+    $variables['is_enabled'] = FALSE;
+  }
+}
+
+/**
+ *  Get a link for the share page
+ *  avec l'information sur le nid de la page à partager
+ *  et des options utiles pour la colorbox
+ *  @see zeest_common_get_nids_variable_get()
+ * */
+function zee_essentials_share_get_link_mail($node){
+  $nid_share  =  zeest_common_get_nids_variable_get('adpi_partage_nids');
+  return '/node/' . $nid_share . '?template=colorbox&width=580&height=680&iframe=true&page_id=' . $node->nid;
+}
+/**
+ *  Get a link for the Facebook platform
+ * */
+function zee_essentials_share_get_link_fb($node){
+  $articleUrl = zee_essentials_share_get_href_encode(array('node'=>$node));
+  return 'https://www.facebook.com/sharer.php?u=' . $articleUrl . '&t=' . urlencode($node->title) ;
+}
+/**
+ *  Get a link for the Twitter platform
+ * */
+function zee_essentials_share_get_link_tw($node){
+  $compte_twitter = '@adpi';
+  $compte_twitter = variable_get('site_name','ADPsdsI');
+  $articleUrl = zee_essentials_share_get_href_encode(array('node'=>$node));
+  return 'https://twitter.com/home?status=' . urlencode($node->title)  . ' ' . $compte_twitter .  ' ' . $articleUrl;
+}
+/**
+ *  Get a link for the LinkedIn platform
+ *  @link http://developer.linkedin.com/documents/share-linkedin
+ * */
+function zee_essentials_share_get_link_li($node){
+  $compte_linkedin  = 'adpi_linkedin';
+  $articleTitle     = urlencode($node->title);
+  $articleUrl = zee_essentials_share_get_href_encode(array('node'=>$node));
+  $articleSource    = $compte_linkedin;
+  // TODO: Utlisation du champ field_chapeau
+  $articleSummary   = '';
+  return  'http://www.linkedin.com/shareArticle?mini=true&url=' . $articleUrl . '&title=' . $articleTitle . '&source=' . $articleSource. '&summary='.$articleSummary;
+}
+/**
+ *  Get a link for the Google Plus platform
+ *  @link https://developers.google.com/+/web/share/
+ * */
+function zee_essentials_share_get_link_gp($node){
+  $articleUrl       =   urlencode(url('node/'.$node->nid, array('absolute'=>TRUE)));
+  $articleUrl = zee_essentials_share_get_href_encode(array('node'=>$node));
+  return 'https://plus.google.com/share?url='.$articleUrl;
+}
+
+function zee_essentials_share_get_title($variables=NULL){
+  if(isset($variables['node'])){
+    $title = $node->title;
+  }
+ else{
+   $title = drupal_get_title();
+ }
+ return $title;
+}
+
+
+function zee_essentials_share_get_href_encode($variables=NULL){
+  return urlencode(zee_essentials_share_get_href($variables));
+}
+function zee_essentials_share_get_href($variables=NULL){
+  if(isset($variables['node'])){
+    $node_url = 'node/' . $variables['node']->nid;
+    $href = url($node_url, array( 'absolute'=>TRUE));
+  }
+ else{
+   $href = url(current_path(), array('absolute'=>TRUE));
+ }
+ return $href;
+}
+// définir la current_path et le title sans l'information node
+// définir la current_path et le title avec l'information node
+
+

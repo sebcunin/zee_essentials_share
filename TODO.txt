@@ -1,0 +1,14 @@
+#Zee Essentials Share
+
+
+- Ajouter les champs @done,
+- Faire l'envoi des mails @done,
+- Poser un template HTML (voir le document EXAMPLE_MESSAGE)
+
+## Les services de partage
+- Faire une page de configuration pour activer les services,
+- Faire les hook themes pour chaque services,(pas necessaire)
+- Poser le lien Twitter, @done
+- Poser le lien Google plus, @done
+- Poser le lien Facebook, @done
+- Poser le lien LinkedIn, @done

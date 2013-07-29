@@ -1,0 +1,6 @@
+
+Un fichier tpl est là pour afficher les liens de partage
+
+Il ne fait que récuperer des données provenant des preprocess présents dans le module Zee Essentials.
+
+

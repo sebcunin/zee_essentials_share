@@ -1,0 +1,17 @@
+Bonjour %value[son_nom],
+
+%value[votre_nom] a partagé avec vous la partage %value[title_page] de notre site:
+
+<a href="%value[href_page]">Voir la page</a>
+
+Son message :
+%value[votre_message]
+
+
+
+%value[votre_nom]
+
+
+============================
+Date d'envoi %date
+%site

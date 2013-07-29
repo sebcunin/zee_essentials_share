@@ -1,0 +1,11 @@
+name = Zee Essentials Share
+description = Fournit des outils de partage
+core = 7.x
+package = Zee Essentials
+php = 5.2.4
+version = 0.1
+dependencies[] = ctools
+dependencies[] = page_manager
+features[ctools][] = page_manager:pages_default:1
+features[features_api][] = api:1
+features[page_manager_pages][] = page_de_partage
