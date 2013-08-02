@@ -153,4 +153,30 @@ function zee_essentials_share_get_href($variables=NULL){
 // définir la current_path et le title sans l'information node
 // définir la current_path et le title avec l'information node
 
+/**
+ * Ajout l'appel du fichier JS spécifique à Twitter
+ * @return [type] [description]
+ */
+function zee_essentials_share_add_js_twitter(){
+  drupal_add_js('!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");',
+    array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
+  );
+}
+
+/**
+ * Ajout l'appel du fichier JS spécifique à Facebook
+ * @return [type] [description]
+ */
+function zee_essentials_share_add_js_facebook(){
+  $appId = variable_get('zee_essentials_share_facebook_id','XXXXXXXXXXXXXXX');
+  drupal_add_js('(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=' . $appId . '";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, \'script\', \'facebook-jssdk\'));',
+    array('type' => 'inline', 'scope' => 'footer', 'weight' => 5)
+  );
+}
 
