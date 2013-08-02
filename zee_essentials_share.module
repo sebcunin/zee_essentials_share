@@ -1,15 +1,27 @@
 <?php
 
 function _zee_essentials_get_nids_variable_get($key='site_name'){
-
-
-return NULL;
-
-
-
+    return NULL;
 }
 
 include_once 'zee_essentials_share.features.inc';
+
+
+
+/**
+ * Implements hook_menu().
+ */
+function zee_essentials_share_menu() {
+  $items['admin/config/zee_essentials_share'] = array(
+    'title' => 'Zee Essentials Share',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('zee_essentials_share_settings_form'),
+    'access arguments' => array('administer zee essentials'),
+    'file' => 'zee_essentials_share.admin.inc',
+  );
+
+  return $items;
+}
 /**
  * @file zee_essentials_share.module
  * */
