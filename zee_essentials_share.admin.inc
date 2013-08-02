@@ -1,9 +1,8 @@
 <?php
 
-
-
 /**
  * @file zee_essentials_share.admin.inc
+ * Page de configuration pour le module Zee Essentials Share
  */
 
 function zee_essentials_share_settings_form($form_state){
