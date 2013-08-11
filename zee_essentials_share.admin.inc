@@ -24,13 +24,14 @@ function zee_essentials_share_settings_form($form_state){
     '#default_value'=> variable_get('zee_essentials_share_facebook_id','XXXXXXXXXXXXXXX'),
   );
 
-  // COMPTE TWITTER
+  // TWITTER
   $form['twitter'] = array();
   $form['twitter']['#type'] = 'fieldset';
   $form['twitter']['#title']  ='Twitter';
   $form['twitter']['#collapsible'] = TRUE;
-  $form['twitter']['#collapsed'] = TRUE;
-
+  $form['twitter']['#collapsed']  = TRUE;
+  
+  // Compte twitter
   $account_twitter = array();
   $account_twitter['#type'] = 'textfield';
   $account_twitter['#title'] = 'Compte Twitter';
