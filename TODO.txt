@@ -12,3 +12,10 @@
 - Poser le lien Google plus, @done
 - Poser le lien Facebook, @done
 - Poser le lien LinkedIn, @done
+
+
+
+## Configuration des servics de base
+### Twitter
+### Facebook
+### Googles Plus
