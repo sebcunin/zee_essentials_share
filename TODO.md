@@ -29,3 +29,9 @@ de type Vertical (Options de publication)
 ### Twitter
 ### Facebook
 ### Google
+
+
+## Outils administration
+[] ajouter le compte twitter
+[] ajouter le compte facebook
+[] ajouter le compte linkedin

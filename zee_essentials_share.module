@@ -147,7 +147,7 @@ function zee_essentials_share_get_link_fb($node){
  *  Get a link for the Twitter platform
  * */
 function zee_essentials_share_get_link_tw($node){
-  $compte_twitter = variable_get('site_name','@zeeagency');
+  $compte_twitter = variable_get('zeest_account_twitter','@zeeagency');
   $articleUrl = zee_essentials_share_get_href_encode(array('node'=>$node));
   return 'https://twitter.com/home?status=' . urlencode($node->title)  . ' ' . $compte_twitter .  ' ' . $articleUrl;
 }
