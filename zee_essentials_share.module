@@ -67,8 +67,23 @@ function zee_essentials_share_theme($existing, $type, $theme, $path) {
   );
 }
 
-function zee_essentials_share_get_node(){
-  return menu_get_object();
+function zee_essentials_share_node_view($node, $view_mode){
+  $links  = array();
+
+$href = zee_essentials_share_get_link_mail($node);
+dsm($href);
+  // TODO: lien
+  $links['share_webform'] = array(
+    'title' => t("Share with a form's webform"),
+    'href' => $href,
+    'attributes' => array('title' => t("Add link Zee Essentials Share")),
+);
+  $node->content['links']['zeest'] = array(
+    '#theme' => 'links__node__blog',
+    '#links' => $links,
+    '#attributes' => array('class' => array('links', 'inline')),
+  );
+  dsm($node);
 }
 /**
  * Injecter des données sur les réseaux sociaux
@@ -80,7 +95,7 @@ function zee_essentials_share_preprocess_zee_essentials_share_links(&$variables=
   $variables['link_share_tw'] = '#';
   $variables['link_share_li'] = '#';
   $variables['link_share_gp'] = '#';
-  $node = zee_essentials_share_get_node();
+  $node = menu_get_object();
   if(isset($node)){
     $variables['link_share']    = zee_essentials_share_get_link_mail($node);
     $variables['link_share_fb'] = zee_essentials_share_get_link_fb($node);
