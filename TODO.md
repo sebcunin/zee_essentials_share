@@ -32,7 +32,7 @@ de type Vertical (Options de publication)
 
 
 ## Outils administration
-[] ajouter le compte twitter
+[x] ajouter le compte twitter
 [] ajouter le compte facebook
 [] ajouter le compte linkedin
 
