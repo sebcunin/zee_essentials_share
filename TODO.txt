@@ -14,8 +14,18 @@
 - Poser le lien LinkedIn, @done
 
 
+## Revoir les variables utilisés sur le projet ADPI
+via un hook_install, je peux revoir les variables persitantes.
+
+## OpenGraph
+Pourvoir définir les informations présentes 
+dans les méta OpenGraph, sur les données globale et sur 
+les données sur les types de contenu.
+
+Sur les types de contenu, dans la page d'édition, un nouveau *fieldset*
+de type Vertical (Options de publication) 
 
 ## Configuration des servics de base
 ### Twitter
 ### Facebook
-### Googles Plus
+### Google

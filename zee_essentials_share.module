@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * @file zee_essentials_share.module
+ * */
+
+
+include_once 'zee_essentials_share.features.inc';
+
+/**
+ * */
 function _zee_essentials_get_nids_variable_get($key='site_name'){
     return NULL;
 }
-
-include_once 'zee_essentials_share.features.inc';
 
 
 

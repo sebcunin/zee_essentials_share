@@ -1,0 +1,9 @@
+<?php
+
+
+/**
+  * zee_essentials_share.install
+ */
+
+function zee_essentials_share_update(){
+}
