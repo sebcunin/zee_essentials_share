@@ -86,6 +86,7 @@ function zee_essentials_share_node_view($node, $view_mode){
     '#attributes' => array('class' => array('links', 'inline')),
   );
   dsm($node);
+  dsm(zee_essentials_share_get_link_tw($node));
 }
 /**
  * Injecter des données sur les réseaux sociaux
@@ -147,9 +148,12 @@ function zee_essentials_share_get_link_fb($node){
  *  Get a link for the Twitter platform
  * */
 function zee_essentials_share_get_link_tw($node){
-  $compte_twitter = variable_get('zeest_account_twitter','@zeeagency');
+  $compte = variable_get('zeest_account_twitter','@zeeagency');
+  $message = variable_get('zeest_twitter_message', '');
   $articleUrl = zee_essentials_share_get_href_encode(array('node'=>$node));
-  return 'https://twitter.com/home?status=' . urlencode($node->title)  . ' ' . $compte_twitter .  ' ' . $articleUrl;
+  $message = t($message, array('@title'=>urlencode($node->title), '@account'=> $compte, '@url'=>$articleUrl));
+  dsm($message);
+  return 'https://twitter.com/home?status=' . urlencode($node->title)  . ' ' . $compte .  ' ' . $articleUrl;
 }
 /**
  *  Get a link for the LinkedIn platform

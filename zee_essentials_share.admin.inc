@@ -37,7 +37,17 @@ function zee_essentials_share_settings_form($form_state){
   $account_twitter['#description'] = 'par ex: @zeeagency';
   $account_twitter['#default_value'] = variable_get('zeest_account_twitter','@zeeagency');
   $form['twitter']['zeest_account_twitter'] = $account_twitter;
- 
+
+  // Message utilisé lors du partage d'une page 
+  $message_twitter  = array();
+  $message_twitter['#type'] = 'textarea';
+  $message_twitter['#rows'] = '2';
+  $message_twitter['#title'] = 'Définir le gabarit du message';
+  $message_twitter['#description'] = 'par ex: @title, @account et  @url sont des jetons posssibles.';
+  $message_twitter['#default_value'] = variable_get('zeest_twitter_message','@title par @account readmore @url');
+  $form['twitter']['zeest_twitter_message'] = $message_twitter;
+
+
 
   return system_settings_form($form);
 }
