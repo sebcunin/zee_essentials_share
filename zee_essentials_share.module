@@ -7,12 +7,13 @@
 
 include_once 'zee_essentials_share.features.inc';
 
-/**
- * */
-function _zee_essentials_get_nids_variable_get($key='site_name'){
-    return NULL;
-}
 
+function zee_essentials_nid_webform_partage(){
+  $nids = variable_get('zeest_webforms_nids', array());
+  global $language;
+  if(isset($nids[$language->language]))  return $nids[$language->language];
+  return NULL;
+}
 
 
 /**
@@ -39,7 +40,7 @@ function zee_essentials_share_form_alter(&$form, $form_state, $form_id) {
   // Vérification que nous sommes bien en train de voir le formulaire d'un
   // webform et l'url contient bien share_email
   if(preg_match("/webform_client/i", $form_id)){
-    $nid_share  =  _zee_essentials_get_nids_variable_get('adpi_partage_nids');
+    $nid_share = zee_essentials_nid_webform_partage();
     // Vérification qu'on est vien sur le formulaire de Partage
     // avec le nid_share (NID du Webform)
     if($form_id == 'webform_client_form_' . $nid_share){
@@ -100,10 +101,10 @@ function zee_essentials_share_preprocess_zee_essentials_share_links(&$variables=
  *  Get a link for the share page
  *  avec l'information sur le nid de la page à partager
  *  et des options utiles pour la colorbox
- *  @see _zee_essentials_get_nids_variable_get()
+ *  @see zee_essentials_nid_webform_partage()
  * */
 function zee_essentials_share_get_link_mail($node){
-  $nid_share  =  _zee_essentials_get_nids_variable_get('adpi_partage_nids');
+  $nid_share = zee_essentials_nid_webform_partage();
   return '/node/' . $nid_share . '?template=colorbox&width=580&height=680&iframe=true&page_id=' . $node->nid;
 }
 /**
@@ -117,8 +118,7 @@ function zee_essentials_share_get_link_fb($node){
  *  Get a link for the Twitter platform
  * */
 function zee_essentials_share_get_link_tw($node){
-  $compte_twitter = '@adpi';
-  $compte_twitter = variable_get('site_name','ADPsdsI');
+  $compte_twitter = variable_get('site_name','@zeeagency');
   $articleUrl = zee_essentials_share_get_href_encode(array('node'=>$node));
   return 'https://twitter.com/home?status=' . urlencode($node->title)  . ' ' . $compte_twitter .  ' ' . $articleUrl;
 }
@@ -127,7 +127,7 @@ function zee_essentials_share_get_link_tw($node){
  *  @link http://developer.linkedin.com/documents/share-linkedin
  * */
 function zee_essentials_share_get_link_li($node){
-  $compte_linkedin  = 'adpi_linkedin';
+  $compte_linkedin = variable_get('zeest_account_linkedin','');
   $articleTitle     = urlencode($node->title);
   $articleUrl = zee_essentials_share_get_href_encode(array('node'=>$node));
   $articleSource    = $compte_linkedin;

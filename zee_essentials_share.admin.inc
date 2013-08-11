@@ -6,6 +6,8 @@
  */
 
 function zee_essentials_share_settings_form($form_state){
+  //TODO: variable_get zeest_account_linkedin
+  //TODO: variable_get zeest_webforms_nids
   $form = array();
   $form['facebook'] = array(
     '#type'         =>  'fieldset',

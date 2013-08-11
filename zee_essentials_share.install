@@ -5,5 +5,7 @@
   * zee_essentials_share.install
  */
 
-function zee_essentials_share_update(){
+function zee_essentials_share_update_7001(&$sandbox){
+  $webform_nids = variable_get('adpi_partage_nids','');
+  variable('zeest_webforms_nids', $webform_nids);
 }
