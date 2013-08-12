@@ -32,6 +32,7 @@ de type Vertical (Options de publication)
 
 
 ## Outils administration
+[] Définir les OG par défaut
 [x] ajouter le compte twitter
 [] ajouter le compte facebook
 [] ajouter le compte linkedin
